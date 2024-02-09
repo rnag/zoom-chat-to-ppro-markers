@@ -12,7 +12,9 @@ Steps to get this working in Adobe Premiere:
 
 2. Download `.jsx` files and save it to a local folder -- see [Download JSX Files](#download-jsx-files) below.
 
-3. Open Extension in Premiere, choose `Select Script Folder...` and then folder with the `.jsx` file. See [Set Folder for Extension](#set-folder-for-extension-in-premiere) for help.
+3. Open Extension in Premiere, choose `Select Script Folder...` and then folder with the `.jsx` file.
+
+    See [Set Folder for Extension (in Premiere)](#set-folder-for-extension-in-premiere) for help.
 
 4. Open or create new Premiere Project.
 

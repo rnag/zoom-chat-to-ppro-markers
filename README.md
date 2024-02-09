@@ -7,7 +7,8 @@
 Steps to get this working in Adobe Premiere:
 
 1. Use following link to download `JSX Launcher` Extension:
-   https://adobe.com/go/cc_plugins_discover_plugin?pluginId=12096&workflow=share
+
+    - https://adobe.com/go/cc_plugins_discover_plugin?pluginId=12096&workflow=share
 
 2. Download this `.jsx` file and save it to a local user folder.
 

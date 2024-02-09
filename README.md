@@ -1,32 +1,38 @@
 # Zoom Chat to PPro Markers
 
-> Import a Zoom .chat File for Meeting as Sequence Markers into Adobe Premiere Pro
+> Import a Zoom `.chat` File for a Recording as Sequence Markers into Adobe Premiere Pro.
 
 ## Getting Started
 
 Steps to get this working in Adobe Premiere:
 
-1. Use following link to download `JSX Launcher` Extension:
+1. Download and activate the `JSX Launcher` Extension on _Adobe Exchange_:
 
     - https://adobe.com/go/cc_plugins_discover_plugin?pluginId=12096&workflow=share
 
-2. Download `.jsx` files and save it to a local folder -- see [Download JSX File](#download-jsx-file) below.
+2. Download `.jsx` files and save it to a local folder -- see [Download JSX Files](#download-jsx-files) below.
 
-3. Open Extension in Premiere, Choose `Select Script Folder...` and select the folder where `.jsx` file was downloaded to.
+3. Open Extension in Premiere, choose `Select Script Folder...` and then folder with the `.jsx` file. See [Set Folder for Extension](#set-folder-for-extension-in-premiere) for help.
 
 4. Open or create new Premiere Project.
 
-5. Drag any media file into the timeline. The folder with the media file should contain the `*.chat` file to import sequence markers for.
+5. Drag any media file into the timeline, so that a default sequence is created.
+
+    > The folder with the media file should contain the `*.chat` file to import sequence markers for.
 
 6. Ensure there is an ACTIVE sequence -- usually there should be one by default.
 
-7. Run the Script. Chat Markers should be added automatically to the Sequence in Premiere.
+7. In _JSX Launcher_ window, Click the `AddChatMarkersToSeq` button to run the script.
 
-## Download JSX File
+    Chat Markers should be added automatically to the Sequence in Premiere.
+
+## Download JSX Files
 
 Open up a Mac Terminal (use `Cmd + Space` and search for `Terminal`).
 
-Use `cd` to create and go to folder where you want to download the `*.jsx` file.
+Use `mkdir` to create folder where you want to download the `*.jsx` file, and optionally `cd` to navigate there.
+
+Assuming you want to create a folder under the User Home `~` directory (Mac):
 
 ```sh
 mkdir ~/PPro-Files
@@ -37,3 +43,10 @@ Now download the `AddChatMarkersToSeq.jsx` to that folder:
 ```sh
 curl -fsSL https://raw.githubusercontent.com/rnag/zoom-chat-to-ppro-markers/main/minified/AddChatMarkersToSeq.jsx -o ~/PPro-Files/AddChatMarkersToSeq.jsx
 ```
+
+## Set Folder for Extension (in Premiere)
+
+1. Navigate to `Windows > Extensions > JSX Launcher`
+2. Choose Extensions flyout menu `"Select Folder..." `(in the ≡ menu of the extension panel)
+3. Select your folder that includes the `.jsx` (Extendscript) script file of the script.
+   The panel will collect `.jsx` files and generate buttons.

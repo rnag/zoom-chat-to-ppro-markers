@@ -10,7 +10,7 @@ Steps to get this working in Adobe Premiere:
 
     - https://adobe.com/go/cc_plugins_discover_plugin?pluginId=12096&workflow=share
 
-2. Download this `.jsx` file and save it to a local user folder -- see [Download JSX File](#download-jsx-file) below.
+2. Download `.jsx` files and save it to a local folder -- see [Download JSX File](#download-jsx-file) below.
 
 3. Open Extension in Premiere, Choose `Select Script Folder...` and select the folder where `.jsx` file was downloaded to.
 

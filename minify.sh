@@ -10,7 +10,7 @@ echo "[ Minifying ${FILE} ]"
 
 curl -X POST -s \
 	-H "Content-Type: application/x-www-form-urlencoded" \
-	--data-urlencode input@AddChatMarkersToSeq.jsx \
+	--data-urlencode "input@${FILE}" \
 	"${URL}" > "${OUT_FILE}"
 
 echo "Saved to \`${OUT_FILE}\`"

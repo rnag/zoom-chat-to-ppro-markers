@@ -46,6 +46,12 @@ Now download the `AddChatMarkersToSeq.jsx` to that folder:
 curl -fsSL https://raw.githubusercontent.com/rnag/zoom-chat-to-ppro-markers/main/minified/AddChatMarkersToSeq.jsx -o ~/PPro-Files/AddChatMarkersToSeq.jsx
 ```
 
+Or, if you'd also want to download `SelectChatFileToImport.jsx`:
+
+```sh
+files=(AddChatMarkersToSeq.jsx SelectChatFileToImport.jsx); for f in ${files[*]}; do curl -fsSL "https://raw.githubusercontent.com/rnag/zoom-chat-to-ppro-markers/main/minified/${f}" -o ~/PPro-Files/"${f}"; done
+```
+
 ## Set Folder for Extension (in Premiere)
 
 1. Navigate to `Windows > Extensions > JSX Launcher`

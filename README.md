@@ -3,8 +3,8 @@
 > Import a Zoom `.chat` File for a Recording as Sequence Markers into Adobe Premiere Pro.
 
 - [Getting Started](#getting-started)
-- [Download JSX Files](#download-jsx-files)
-- [Set Folder for Extension (in Premiere)](#set-folder-for-extension-in-premiere)
+	- [Download JSX Files](#download-jsx-files)
+	- [Set Folder for Extension (in Premiere)](#set-folder-for-extension-in-premiere)
 
 ## Getting Started
 
@@ -32,7 +32,7 @@ Steps to get this working in Adobe Premiere:
 
     Chat Markers should be added automatically to the Sequence in Premiere.
 
-## Download JSX Files
+### Download JSX Files
 
 Open up a Mac Terminal (use `Cmd + Space` and search for `Terminal`).
 
@@ -56,7 +56,7 @@ Or, if you'd also want to download `SelectChatFileToImport.jsx`:
 files=(AddChatMarkersToSeq.jsx SelectChatFileToImport.jsx); for f in ${files[*]}; do curl -fsSL "https://raw.githubusercontent.com/rnag/zoom-chat-to-ppro-markers/main/minified/${f}" -o ~/PPro-Files/"${f}"; done
 ```
 
-## Set Folder for Extension (in Premiere)
+### Set Folder for Extension (in Premiere)
 
 1. Navigate to `Windows > Extensions > JSX Launcher`
 2. Choose Extensions flyout menu `"Select Folder..." `(in the ≡ menu of the extension panel)

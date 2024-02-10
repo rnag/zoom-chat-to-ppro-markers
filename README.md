@@ -59,6 +59,6 @@ files=(AddChatMarkersToSeq.jsx SelectChatFileToImport.jsx); for f in ${files[*]}
 ### Set Folder for Extension (in Premiere)
 
 1. Navigate to `Windows > Extensions > JSX Launcher`
-2. Choose Extensions flyout menu `"Select Folder..." `(in the ≡ menu of the extension panel)
+2. Choose Extensions flyout menu `"Select Folder..."` (in the ≡ menu of the extension panel)
 3. Select your folder that includes the `.jsx` (Extendscript) script file of the script.
    The panel will collect `.jsx` files and generate buttons.

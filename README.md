@@ -1,6 +1,6 @@
 # Zoom Chat to PPro Markers
 
-> Import a Zoom `.chat` File for a Recording as Sequence Markers into Adobe Premiere Pro.
+> Import a [Zoom `.chat` File](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067312) for a Recording as Sequence [Markers](https://helpx.adobe.com/premiere-pro/using/markers.html) into Adobe Premiere Pro.
 
 - [Getting Started](#getting-started)
 	- [Download JSX Files](#download-jsx-files)

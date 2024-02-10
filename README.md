@@ -5,6 +5,7 @@
 - [Getting Started](#getting-started)
 	- [Download JSX Files](#download-jsx-files)
 	- [Set Folder for Extension (in Premiere)](#set-folder-for-extension-in-premiere)
+- [Credits](#credits)
 
 ## Getting Started
 
@@ -62,3 +63,9 @@ files=(AddChatMarkersToSeq.jsx SelectChatFileToImport.jsx); for f in ${files[*]}
 2. Choose Extensions flyout menu `"Select Folder..."` (in the ≡ menu of the extension panel)
 3. Select your folder that includes the `.jsx` (Extendscript) script file of the script.
    The panel will collect `.jsx` files and generate buttons.
+
+## Credits
+
+-   [Made a script for importing a .csv of Vimeo review notes as markers into Premiere](https://www.reddit.com/r/editors/comments/11qkrev/made_a_script_for_importing_a_csv_of_vimeo_review/)
+
+-   [How to import CSV as markers?](https://www.reddit.com/r/premiere/comments/mrcvao/how_to_import_csv_as_markers/)

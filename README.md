@@ -2,6 +2,10 @@
 
 > Import a Zoom `.chat` File for a Recording as Sequence Markers into Adobe Premiere Pro.
 
+- [Getting Started](#getting-started)
+- [Download JSX Files](#download-jsx-files)
+- [Set Folder for Extension (in Premiere)](#set-folder-for-extension-in-premiere)
+
 ## Getting Started
 
 Steps to get this working in Adobe Premiere:

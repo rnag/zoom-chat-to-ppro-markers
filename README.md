@@ -1,6 +1,6 @@
 # Zoom Chat to PPro Markers
 
-> Import a [Zoom `.chat` File](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067312) for a Recording as Sequence [Markers](https://helpx.adobe.com/premiere-pro/using/markers.html) into Adobe Premiere Pro.
+> Import a [Zoom `.chat` File](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067312) for a Recording as Clip (or Sequence) [Markers](https://helpx.adobe.com/premiere-pro/using/markers.html) into Adobe Premiere Pro.
 
 - [Getting Started](#getting-started)
 	- [Download JSX Files](#download-jsx-files)
@@ -23,15 +23,13 @@ Steps to get this working in Adobe Premiere:
 
 4. Open or create new Premiere Project.
 
-5. Drag any media file into the timeline, so that a default sequence is created.
+5. Drag any media file(s) into the timeline, so that a default sequence is created.
 
-    > The folder with the media file should contain the `*.chat` file to import sequence markers for.
+    > The folder (or media path) of each media clip should contain the corresponding `*.chat` file to import markers from.
 
-6. Ensure there is an ACTIVE sequence -- usually there should be one by default.
+6. In _JSX Launcher_ window, Click the `AddChatMarkersToClips` button to run the script.
 
-7. In _JSX Launcher_ window, Click the `AddChatMarkersToClips` button to run the script.
-
-    Chat Markers should be added automatically to the Sequence in Premiere.
+7. Chat Markers should be added automatically to each Media Clip (Audio / Video file) in Adobe Premiere Pro.
 
 ### Download JSX Files
 

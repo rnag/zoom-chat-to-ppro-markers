@@ -29,7 +29,7 @@ Steps to get this working in Adobe Premiere:
 
 6. Ensure there is an ACTIVE sequence -- usually there should be one by default.
 
-7. In _JSX Launcher_ window, Click the `AddChatMarkersToSeq` button to run the script.
+7. In _JSX Launcher_ window, Click the `AddChatMarkersToClips` button to run the script.
 
     Chat Markers should be added automatically to the Sequence in Premiere.
 
@@ -45,16 +45,16 @@ Assuming you want to create a folder under the User Home `~` directory (Mac):
 mkdir ~/PPro-Files
 ```
 
-Now download the `AddChatMarkersToSeq.jsx` to that folder:
+Now download the `AddChatMarkersToClips.jsx` to that folder:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/rnag/zoom-chat-to-ppro-markers/main/minified/AddChatMarkersToSeq.jsx -o ~/PPro-Files/AddChatMarkersToSeq.jsx
+curl -fsSL https://raw.githubusercontent.com/rnag/zoom-chat-to-ppro-markers/main/minified/AddChatMarkersToSeq.jsx -o ~/PPro-Files/AddChatMarkersToClips.jsx
 ```
 
 Or, if you'd also want to download `SelectChatFileToImport.jsx`:
 
 ```sh
-files=(AddChatMarkersToSeq.jsx SelectChatFileToImport.jsx); for f in ${files[*]}; do curl -fsSL "https://raw.githubusercontent.com/rnag/zoom-chat-to-ppro-markers/main/minified/${f}" -o ~/PPro-Files/"${f}"; done
+files=(AddChatMarkersToClips.jsx SelectChatFileToImport.jsx); for f in ${files[*]}; do curl -fsSL "https://raw.githubusercontent.com/rnag/zoom-chat-to-ppro-markers/main/minified/${f}" -o ~/PPro-Files/"${f}"; done
 ```
 
 ### Set Folder for Extension (in Premiere)

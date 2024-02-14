@@ -3,14 +3,18 @@ URL='https://www.toptal.com/developers/javascript-minifier/api/raw'
 
 mkdir -p minified
 
-FILE=${1:-AddChatMarkersToSeq.jsx}
-OUT_FILE="minified/${FILE}"
+for file in lib/*.jsx; do
+    [ -e "$file" ] || continue
+    echo "[ Minifying ${file} ]"
 
-echo "[ Minifying ${FILE} ]"
+    name=${file##*/}
 
-curl -X POST -s \
-	-H "Content-Type: application/x-www-form-urlencoded" \
-	--data-urlencode "input@${FILE}" \
-	"${URL}" > "${OUT_FILE}"
+    out_file="minified/${name}"
 
-echo "Saved to \`${OUT_FILE}\`"
+    curl -X POST -s \
+    -H "Content-Type: application/x-www-form-urlencoded" \
+    --data-urlencode "input@${file}" \
+    "${URL}" > "${out_file}"
+
+    echo "Saved to \`${out_file}\`"
+done

@@ -1,3 +1,5 @@
+/// <reference path="./index.d.ts" />
+
 addStringMethods();
 
 var project = app.project; // current project
@@ -29,15 +31,21 @@ var colors = {
 	CYAN: 7,
 };
 
-var folderToChatFiles = {};
+var folderToChatFiles: Record<string, File[]> = {};
 
-function main() {
+function main(): void {
+	var clip: ProjectItem,
+		folderPath: string | null,
+		itemType: number,
+		markers: MarkerCollection,
+		name: string;
+
 	for (var i = 0; i < numProjectItems; i++) {
-		var clip = projectItems[i];
-		var name = clip.name;
+		clip = projectItems[i];
+		name = clip.name;
 		// Will be CLIP, BIN, ROOT, or FILE.
 		// Ref: https://ppro-scripting.docsforadobe.dev/item/projectitem.html#projectitem-type
-		var itemType = clip.type;
+		itemType = clip.type;
 
 		updateEventPanel('[Checking Project Item #' + (i + 1) + ']');
 		updateEventPanel('Name: ' + name);
@@ -49,7 +57,7 @@ function main() {
 					'Skipping. Can only add markers to footage items.'
 				);
 			else {
-				var folderPath = getFolderName(clip);
+				folderPath = getFolderName(clip);
 
 				if (folderPath) {
 					updateEventPanel('Media Path: ' + folderPath);
@@ -68,8 +76,10 @@ function main() {
 						if (chatFiles === undefined)
 							chatFiles = folderToChatFiles[
 								folderPath
-							] = new Folder(folderPath).getFiles(
-								'*.chat'
+							] = <File[]>(
+								new Folder(folderPath).getFiles(
+									'*.chat'
+								)
 							);
 
 						var chatFileCount = chatFiles.length;
@@ -106,10 +116,15 @@ function main() {
 }
 
 // Creates Clip Markers in an Adobe Premiere Project from a Zoom Chat File
-function createClipMarkersFromChatFile(markers, chatFile) {
-	var message = (timeInSec = user = null);
+function createClipMarkersFromChatFile(
+	markers: MarkerCollection,
+	chatFile: File
+) {
+	var message: string | null = null,
+		timeInSec: number,
+		user: string;
 
-	readTextFile(chatFile, function (line) {
+	readTextFile(chatFile, function (line: string) {
 		var parts = line.split('\t');
 		var time = parts[0].trim();
 		// convert the Timecode string to seconds
@@ -121,8 +136,7 @@ function createClipMarkersFromChatFile(markers, chatFile) {
 				createMarker(markers, timeInSec, user, message);
 
 			timeInSec = thisTimeInSec;
-			user = parts[1]
-				.trim()
+			user = (<string>parts[1].trim())
 				// don't forget to remove the trailing `:`
 				.slice(0, -1);
 			message = parts[2].trim();
@@ -133,13 +147,18 @@ function createClipMarkersFromChatFile(markers, chatFile) {
 	});
 
 	// create final marker
-	if (message) createMarker(markers, timeInSec, user, message);
+	if (message) createMarker(markers, timeInSec!, user!, message);
 }
 
 // Creates a new Clip Marker
 //
 // Docs: https://ppro-scripting.docsforadobe.dev/general/marker.html
-function createMarker(markers, timeInSec, user, message) {
+function createMarker(
+	markers: MarkerCollection,
+	timeInSec: number,
+	user: string,
+	message: string
+) {
 	// create the marker at the given second in the current timeline
 	var marker = markers.createMarker(timeInSec);
 	var words = message.toLowerCase().split(' ');
@@ -184,19 +203,19 @@ function createMarker(markers, timeInSec, user, message) {
 	// marker.setTypeAsComment();
 }
 
-function exitErr(msg) {
+function exitErr(msg: string) {
 	alert(msg);
 	exit(-1);
 }
 
-function updateEventPanel(message) {
+function updateEventPanel(message: string) {
 	app.setSDKEventMessage(message, 'info');
 	//app.setSDKEventMessage('Here is some information.', 'info');
 	//app.setSDKEventMessage('Here is a warning.', 'warning');
 	//app.setSDKEventMessage('Here is an error.', 'error');  // Very annoying; use sparingly.
 }
 
-function updateWithError(message) {
+function updateWithError(message: string) {
 	app.setSDKEventMessage(message, 'error');
 }
 
@@ -221,10 +240,10 @@ function addStringMethods() {
 // Seems like a faster, safer way to get the folder path.
 //
 // Credits: https://community.adobe.com/t5/premiere-pro-discussions/importing-a-folder-with-extendscript-adds-extra-nameless-bin-that-i-don-t-want/m-p/10893595
-function getFolderName(projItem) {
-	if (!projItem) return null;
+function getFolderName(pItem: ProjectItem) {
+	if (!pItem) return null;
 
-	var fullPath = projItem.getMediaPath();
+	var fullPath = pItem.getMediaPath();
 	var lastSep = fullPath.lastIndexOf(sep);
 
 	return lastSep > -1 ? fullPath.slice(0, lastSep) : fullPath;
@@ -253,27 +272,26 @@ function getFolderName(projItem) {
 // }
 
 // // Function by u/fixinPost94
-function convertTimecodeToSeconds(timecode) {
+function convertTimecodeToSeconds(timecode: string): number {
 	// split timecode string into 3 strings in an array according to the ':' symbol
-	myT = timecode.split(':');
+	var myT = timecode.split(':');
 
-	if (myT.length !== 3) return false;
+	if (myT.length !== 3) return 0;
 
-	hours = parseInt(myT[0]) * 3600; // hours into integer seconds
-	minutes = parseInt(myT[1]) * 60; // minutes into integer seconds
-	seconds = parseInt(myT[2]);
+	var hours = parseInt(myT[0]) * 3600; // hours into integer seconds
+	var minutes = parseInt(myT[1]) * 60; // minutes into integer seconds
+	var seconds = parseInt(myT[2]);
 
-	if (isNaN(hours) || isNaN(minutes) || isNaN(seconds))
-		return false;
+	if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) return 0;
 
-	totalInSeconds = hours + minutes + seconds; // add the seconds together
+	var totalInSeconds = hours + minutes + seconds; // add the seconds together
 	return totalInSeconds;
 }
 
 // Returns all of the text as is
 // Returns false if the file doesn't exist
 // Callback is triggered for each line of text
-function readTextFile(fileOrPath, callback) {
+function readTextFile(fileOrPath: File | string, callback: Function) {
 	var file =
 		fileOrPath instanceof File
 			? fileOrPath

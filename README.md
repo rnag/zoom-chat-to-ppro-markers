@@ -5,6 +5,8 @@
 - [Getting Started](#getting-started)
 	- [Download JSX Files](#download-jsx-files)
 	- [Set Folder for Extension (in Premiere)](#set-folder-for-extension-in-premiere)
+- [Development](#development)
+	- [Build](#build)
 - [Credits](#credits)
 
 ## Getting Started
@@ -61,6 +63,16 @@ files=(AddChatMarkersToClips.jsx SelectChatFileToImport.jsx); for f in ${files[*
 2. Choose Extensions flyout menu `"Select Folder..."` (in the ≡ menu of the extension panel)
 3. Select your folder that includes the `.jsx` (Extendscript) script file of the script.
    The panel will collect `.jsx` files and generate buttons.
+
+## Development
+
+### Build
+
+To compile typescript `.ts` files to `.jsx`, run:
+
+```sh
+npm run build
+```
 
 ## Credits
 

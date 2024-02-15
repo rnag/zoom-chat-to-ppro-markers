@@ -1,0 +1,15 @@
+{
+	"scripts": {
+		"rename": "find . -name '*.js' -exec echo mv {} {}x \\;",
+		"build": "npm run compile && npm run minify",
+		"compile": "tsc",
+		"minify": "esbuild --minify --target=es5 .build/*.js --outdir=minified --out-extension:.js=.jsx"
+	},
+	"devDependencies": {
+		"@types/node": "^20.11.18",
+		"esbuild": "^0.20.0",
+		"extendscript-es5-shim-ts": "^0.0.1",
+		"types-for-adobe": "github:pravdomil/types-for-adobe",
+		"typescript": "^5.3.3"
+	}
+}

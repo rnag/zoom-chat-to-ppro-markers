@@ -3,11 +3,11 @@ URL='https://www.toptal.com/developers/javascript-minifier/api/raw'
 
 mkdir -p minified
 
-for file in lib/*.jsx; do
+for file in .build/*.js; do
     [ -e "$file" ] || continue
     echo "[ Minifying ${file} ]"
 
-    name=${file##*/}
+    name=${file##*/}x
 
     out_file="minified/${name}"
 

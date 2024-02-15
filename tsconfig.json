@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"module": "CommonJS",
+		"outDir": ".build",
+		"allowJs": true,
+		"target": "es3",
+		"ignoreDeprecations": "5.0",
+		"strict": true,
+		"removeComments": true,
+		"jsx": "preserve",
+		"noLib": true,
+		"typeRoots": ["./node_modules/types-for-adobe"],
+		"types": ["Premiere/14.0"]
+	},
+	"include": ["lib/**/*.ts"],
+	"exclude": ["minified/**", ".build/**"]
+}

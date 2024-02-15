@@ -1,5 +1,3 @@
-// @ts-ignore
-
 /// <reference path="./index.d.ts" />
 
 addStringMethods();

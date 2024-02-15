@@ -1,3 +1,5 @@
+/// <reference path="./index.d.ts" />
+
 addStringMethods();
 
 var project = app.project; // current project

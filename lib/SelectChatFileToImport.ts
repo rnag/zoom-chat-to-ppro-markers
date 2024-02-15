@@ -42,7 +42,8 @@ var colors = {
 	CYAN: 7,
 };
 
-function main() {
+// @ts-expect-error TS2393
+function main(): void {
 	var chatFileCount = chatFiles.length;
 
 	if (!chatFileCount) exitErr('No *.chat files selected!');
@@ -61,9 +62,11 @@ function main() {
 		// );
 
 		if (chatFile instanceof File && chatFile.exists) {
-			var message = (timeInSec = user = null);
+			var message: string | null = null,
+				timeInSec: number,
+				user: string;
 
-			readTextFile(chatFile, function (line) {
+			readTextFile(chatFile, function (line: string) {
 				var parts = line.split('\t');
 				var time = parts[0].trim();
 				// convert the Timecode string to seconds
@@ -87,18 +90,18 @@ function main() {
 			});
 
 			// create final marker
-			if (message) createMarker(timeInSec, user, message);
+			if (message) createMarker(timeInSec!, user!, message);
 		}
 	}
 }
 
 // Utility function so only files with a CHAT extension can
 // be loaded when this script runs on a mac
-function checkMacFileType(file) {
-	if (!file instanceof Folder) return true;
+function checkMacFileType(file: Folder | any) {
+	if (!(file instanceof Folder)) return true;
 
-	index = file.name.lastIndexOf('.');
-	ext = file.name.substring(index + 1);
+	let index = file.name.lastIndexOf('.');
+	let ext = file.name.substring(index + 1);
 
 	return ext == 'chat' || ext == 'CHAT';
 }
@@ -106,7 +109,12 @@ function checkMacFileType(file) {
 // Creates a new Sequence Marker
 //
 // Docs: https://ppro-scripting.docsforadobe.dev/general/marker.html
-function createMarker(timeInSec, user, message) {
+// @ts-expect-error TS2393
+function createMarker(
+	timeInSec: number,
+	user: string,
+	message: string
+) {
 	// create the marker at the given second in the current timeline
 	var marker = sequenceMarkers.createMarker(timeInSec);
 	var words = message.toLowerCase().split(' ');
@@ -151,13 +159,28 @@ function createMarker(timeInSec, user, message) {
 	// marker.setTypeAsComment();
 }
 
-function exitErr(msg) {
+// @ts-expect-error TS2393
+function exitErr(msg: string) {
 	alert(msg);
 	exit(-1);
 }
 
+// @ts-expect-error TS2393
+function updateEventPanel(message: string) {
+	app.setSDKEventMessage(message, 'info');
+	//app.setSDKEventMessage('Here is some information.', 'info');
+	//app.setSDKEventMessage('Here is a warning.', 'warning');
+	//app.setSDKEventMessage('Here is an error.', 'error');  // Very annoying; use sparingly.
+}
+
+// @ts-expect-error TS2393
+function updateWithError(message: string) {
+	app.setSDKEventMessage(message, 'error');
+}
+
 // Adds String.trim() for ES3
 // Credits: https://stackoverflow.com/a/1418059/10237506
+// @ts-expect-error TS2393
 function addStringMethods() {
 	if (typeof String.prototype.trim === 'undefined') {
 		String.prototype.trim = function () {
@@ -172,28 +195,29 @@ function addStringMethods() {
 	// }
 }
 
-// // Function by u/fixinPost94
-function convertTimecodeToSeconds(timecode) {
+// Function by u/fixinPost94
+// @ts-expect-error TS2393
+function convertTimecodeToSeconds(timecode: string): number {
 	// split timecode string into 3 strings in an array according to the ':' symbol
-	myT = timecode.split(':');
+	var myT = timecode.split(':');
 
-	if (myT.length !== 3) return false;
+	if (myT.length !== 3) return 0;
 
-	hours = parseInt(myT[0]) * 3600; // hours into integer seconds
-	minutes = parseInt(myT[1]) * 60; // minutes into integer seconds
-	seconds = parseInt(myT[2]);
+	var hours = parseInt(myT[0]) * 3600; // hours into integer seconds
+	var minutes = parseInt(myT[1]) * 60; // minutes into integer seconds
+	var seconds = parseInt(myT[2]);
 
-	if (isNaN(hours) || isNaN(minutes) || isNaN(seconds))
-		return false;
+	if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) return 0;
 
-	totalInSeconds = hours + minutes + seconds; // add the seconds together
+	var totalInSeconds = hours + minutes + seconds; // add the seconds together
 	return totalInSeconds;
 }
 
 // Returns all of the text as is
 // Returns false if the file doesn't exist
 // Callback is triggered for each line of text
-function readTextFile(fileOrPath, callback) {
+// @ts-expect-error TS2393
+function readTextFile(fileOrPath: File | string, callback: Function) {
 	var file =
 		fileOrPath instanceof File
 			? fileOrPath

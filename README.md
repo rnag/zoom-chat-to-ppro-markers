@@ -6,6 +6,7 @@
 	- [Download JSX Files](#download-jsx-files)
 	- [Set Folder for Extension (in Premiere)](#set-folder-for-extension-in-premiere)
 - [Development](#development)
+	- [Install](#install)
 	- [Build](#build)
 - [Credits](#credits)
 
@@ -65,6 +66,16 @@ files=(AddChatMarkersToClips.jsx SelectChatFileToImport.jsx); for f in ${files[*
    The panel will collect `.jsx` files and generate buttons.
 
 ## Development
+
+### Install
+
+Checkout or clone the project from Git.
+
+Then `cd` into the project folder and install all project dependencies with `npm`:
+
+```sh
+npm i
+```
 
 ### Build
 

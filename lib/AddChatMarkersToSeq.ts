@@ -1,3 +1,7 @@
+// @ts-ignore
+
+/// <reference path="./index.d.ts" />
+
 addStringMethods();
 
 var project = app.project; // current project
@@ -17,12 +21,14 @@ var rootProject = project.rootItem;
 
 var item = rootProject.children[0]; // assuming that the first project item is footage.
 
-var folderPath = getFolderName(item);
+var sep = Folder.fs == 'Macintosh' ? '/' : '\\';
+
+var folderPath: string | null = getFolderName(item);
 
 if (!folderPath)
 	exitErr('Script requires a clip in the active sequence!');
 
-var clipFolder = Folder(folderPath);
+var clipFolder = Folder(folderPath!);
 
 // https://ppro-scripting.docsforadobe.dev/general/marker.html#marker-setcolorbyindex
 var colors = {
@@ -36,7 +42,8 @@ var colors = {
 	CYAN: 7,
 };
 
-function main() {
+// @ts-expect-error TS2393
+function main(): void {
 	var chatFiles = clipFolder.getFiles('*.chat');
 	var chatFileCount = chatFiles.length;
 
@@ -59,9 +66,11 @@ function main() {
 		// );
 
 		if (chatFile instanceof File && chatFile.exists) {
-			var message = (timeInSec = user = null);
+			var message: string | null = null,
+				timeInSec: number,
+				user: string;
 
-			readTextFile(chatFile, function (line) {
+			readTextFile(chatFile, function (line: string) {
 				var parts = line.split('\t');
 				var time = parts[0].trim();
 				// convert the Timecode string to seconds
@@ -85,7 +94,7 @@ function main() {
 			});
 
 			// create final marker
-			if (message) createMarker(timeInSec, user, message);
+			if (message) createMarker(timeInSec!, user!, message);
 		}
 	}
 }
@@ -93,7 +102,12 @@ function main() {
 // Creates a new Sequence Marker
 //
 // Docs: https://ppro-scripting.docsforadobe.dev/general/marker.html
-function createMarker(timeInSec, user, message) {
+// @ts-expect-error TS2393
+function createMarker(
+	timeInSec: number,
+	user: string,
+	message: string
+) {
 	// create the marker at the given second in the current timeline
 	var marker = sequenceMarkers.createMarker(timeInSec);
 	var words = message.toLowerCase().split(' ');
@@ -138,13 +152,28 @@ function createMarker(timeInSec, user, message) {
 	// marker.setTypeAsComment();
 }
 
-function exitErr(msg) {
+// @ts-expect-error TS2393
+function exitErr(msg: string) {
 	alert(msg);
 	exit(-1);
 }
 
+// @ts-expect-error TS2393
+function updateEventPanel(message: string) {
+	app.setSDKEventMessage(message, 'info');
+	//app.setSDKEventMessage('Here is some information.', 'info');
+	//app.setSDKEventMessage('Here is a warning.', 'warning');
+	//app.setSDKEventMessage('Here is an error.', 'error');  // Very annoying; use sparingly.
+}
+
+// @ts-expect-error TS2393
+function updateWithError(message: string) {
+	app.setSDKEventMessage(message, 'error');
+}
+
 // Adds String.trim() for ES3
 // Credits: https://stackoverflow.com/a/1418059/10237506
+// @ts-expect-error TS2393
 function addStringMethods() {
 	if (typeof String.prototype.trim === 'undefined') {
 		String.prototype.trim = function () {
@@ -161,19 +190,15 @@ function addStringMethods() {
 
 // Get the Path to Folder for a Project Item
 //
-// Seems like a faster, safer way to get the folder path.
-//
-// Credits: https://community.adobe.com/t5/premiere-pro-discussions/importing-a-folder-with-extendscript-adds-extra-nameless-bin-that-i-don-t-want/m-p/10893595
-function getFolderName(projItem) {
-	if (!projItem) return null;
+// Credits: https://github.com/adobe-extension-tools/extendscript-starter/blob/8a8a087e7641c2aab050884c457f3829020cd3e5/src/Premiere/index.ts#L1318
+// @ts-expect-error TS2393
+function getFolderName(pItem: ProjectItem) {
+	if (!pItem) return null;
 
-	var projItemName = projItem.name;
-	var projItemPath = projItem.getMediaPath();
+	var fullPath = pItem.getMediaPath();
+	var lastSep = fullPath.lastIndexOf(sep);
 
-	return projItemPath.slice(
-		0,
-		projItemPath.length - projItemName.length
-	);
+	return lastSep > -1 ? fullPath.slice(0, lastSep) : fullPath;
 }
 
 // Credits: https://stackoverflow.com/a/818619/10237506
@@ -184,28 +209,29 @@ function getFolderName(projItem) {
 // 	);
 // }
 
-// // Function by u/fixinPost94
-function convertTimecodeToSeconds(timecode) {
+// Function by u/fixinPost94
+// @ts-expect-error TS2393
+function convertTimecodeToSeconds(timecode: string): number {
 	// split timecode string into 3 strings in an array according to the ':' symbol
-	myT = timecode.split(':');
+	var myT = timecode.split(':');
 
-	if (myT.length !== 3) return false;
+	if (myT.length !== 3) return 0;
 
-	hours = parseInt(myT[0]) * 3600; // hours into integer seconds
-	minutes = parseInt(myT[1]) * 60; // minutes into integer seconds
-	seconds = parseInt(myT[2]);
+	var hours = parseInt(myT[0]) * 3600; // hours into integer seconds
+	var minutes = parseInt(myT[1]) * 60; // minutes into integer seconds
+	var seconds = parseInt(myT[2]);
 
-	if (isNaN(hours) || isNaN(minutes) || isNaN(seconds))
-		return false;
+	if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) return 0;
 
-	totalInSeconds = hours + minutes + seconds; // add the seconds together
+	var totalInSeconds = hours + minutes + seconds; // add the seconds together
 	return totalInSeconds;
 }
 
 // Returns all of the text as is
 // Returns false if the file doesn't exist
 // Callback is triggered for each line of text
-function readTextFile(fileOrPath, callback) {
+// @ts-expect-error TS2393
+function readTextFile(fileOrPath: File | string, callback: Function) {
 	var file =
 		fileOrPath instanceof File
 			? fileOrPath

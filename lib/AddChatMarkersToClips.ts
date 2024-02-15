@@ -33,6 +33,7 @@ var colors = {
 
 var folderToChatFiles: Record<string, File[]> = {};
 
+// @ts-expect-error TS2393
 function main(): void {
 	var clip: ProjectItem,
 		folderPath: string | null,
@@ -153,6 +154,7 @@ function createClipMarkersFromChatFile(
 // Creates a new Clip Marker
 //
 // Docs: https://ppro-scripting.docsforadobe.dev/general/marker.html
+// @ts-expect-error TS2393
 function createMarker(
 	markers: MarkerCollection,
 	timeInSec: number,
@@ -203,11 +205,13 @@ function createMarker(
 	// marker.setTypeAsComment();
 }
 
+// @ts-expect-error TS2393
 function exitErr(msg: string) {
 	alert(msg);
 	exit(-1);
 }
 
+// @ts-expect-error TS2393
 function updateEventPanel(message: string) {
 	app.setSDKEventMessage(message, 'info');
 	//app.setSDKEventMessage('Here is some information.', 'info');
@@ -215,12 +219,14 @@ function updateEventPanel(message: string) {
 	//app.setSDKEventMessage('Here is an error.', 'error');  // Very annoying; use sparingly.
 }
 
+// @ts-expect-error TS2393
 function updateWithError(message: string) {
 	app.setSDKEventMessage(message, 'error');
 }
 
 // Adds String.trim() for ES3
 // Credits: https://stackoverflow.com/a/1418059/10237506
+// @ts-expect-error TS2393
 function addStringMethods() {
 	if (typeof String.prototype.trim === 'undefined') {
 		String.prototype.trim = function () {
@@ -237,9 +243,8 @@ function addStringMethods() {
 
 // Get the Path to Folder for a Project Item
 //
-// Seems like a faster, safer way to get the folder path.
-//
-// Credits: https://community.adobe.com/t5/premiere-pro-discussions/importing-a-folder-with-extendscript-adds-extra-nameless-bin-that-i-don-t-want/m-p/10893595
+// Credits: https://github.com/adobe-extension-tools/extendscript-starter/blob/8a8a087e7641c2aab050884c457f3829020cd3e5/src/Premiere/index.ts#L1318
+// @ts-expect-error TS2393
 function getFolderName(pItem: ProjectItem) {
 	if (!pItem) return null;
 
@@ -271,7 +276,8 @@ function getFolderName(pItem: ProjectItem) {
 // 	}
 // }
 
-// // Function by u/fixinPost94
+// Function by u/fixinPost94
+// @ts-expect-error TS2393
 function convertTimecodeToSeconds(timecode: string): number {
 	// split timecode string into 3 strings in an array according to the ':' symbol
 	var myT = timecode.split(':');
@@ -291,6 +297,7 @@ function convertTimecodeToSeconds(timecode: string): number {
 // Returns all of the text as is
 // Returns false if the file doesn't exist
 // Callback is triggered for each line of text
+// @ts-expect-error TS2393
 function readTextFile(fileOrPath: File | string, callback: Function) {
 	var file =
 		fileOrPath instanceof File

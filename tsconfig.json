@@ -9,6 +9,7 @@
 		"removeComments": true,
 		"jsx": "preserve",
 		"noLib": true,
+		"skipLibCheck": true,
 		"typeRoots": ["./node_modules/types-for-adobe"],
 		"types": ["Premiere/14.0"]
 	},

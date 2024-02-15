@@ -1,4 +1,5 @@
 {
+	"type": "module",
 	"scripts": {
 		"rename": "find . -name '*.js' -exec echo mv {} {}x \\;",
 		"build": "npm run compile && npm run minify",

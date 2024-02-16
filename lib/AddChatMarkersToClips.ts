@@ -117,6 +117,7 @@ function main(): void {
 }
 
 // Creates Clip Markers in an Adobe Premiere Project from a Zoom Chat File
+// @ts-expect-error TS2393
 function createClipMarkersFromChatFile(
 	markers: MarkerCollection,
 	chatFile: File

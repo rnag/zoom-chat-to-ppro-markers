@@ -3,21 +3,11 @@
 addStringMethods();
 
 var project = app.project; // current project
-var sequence = project.activeSequence; // current open timeline
-
-if (!sequence) exitErr('Script requires an active sequence!');
-
-// Remove the following "//" to show an alert box showing the current project and name of active timeline to make sure you're affecting the correct timeline
-// alert(project.name.toString() + " " + sequence.name.toString());
-
-// var videoTracks = project.activeSequence.videoTracks;
-
-var sequenceMarkers = sequence.markers;
 
 // Refs:
 //   - https://extendscript.docsforadobe.dev/file-system-access/file-object.html#opendialog
 //   - https://github.com/Adobe-CEP/CEP-Resources/blob/80003af709375bc36fc2ea19933878635ecb751b/ExtendScript-Toolkit/Samples/javascript/SnpXMLTreeView.jsx#L446
-var userPrompt = 'Select *.chat file';
+const userPrompt = 'Select *.chat file';
 
 if (File.fs == 'Windows')
 	var chatFiles = File.openDialog(
@@ -50,55 +40,33 @@ function main(): void {
 
 	if (!chatFileCount) exitErr('No *.chat files selected!');
 
+	const clips = project.rootItem.findItemsMatchingMediaPath(
+		chatFiles[0].parent.fsName
+	) as unknown as ProjectItem[];
+
+	const numClips = clips.length;
+	if (!numClips)
+		exitErr(
+			'No media clips with the same media path as selected *chat file!'
+		);
+
 	for (var i = 0; i < chatFileCount; i++) {
 		// https://extendscript.docsforadobe.dev/file-system-access/file-object.html#file-object-properties
 
 		var chatFile = chatFiles[i];
 
-		// alert(
-		// 	decodeURI(chatFile.name) +
-		// 		" | Is Folder: " +
-		// 		(chatFile instanceof Folder) +
-		// 		", Is File: " +
-		// 		(chatFile instanceof File)
-		// );
-
-		if (chatFile instanceof File && chatFile.exists) {
-			var message: string | null = null,
-				timeInSec: number,
-				user: string;
-
-			readTextFile(chatFile, function (line: string) {
-				var parts = line.split('\t');
-				var time = parts[0].trim();
-				// convert the Timecode string to seconds
-				var thisTimeInSec = convertTimecodeToSeconds(time);
-
-				if (parts.length === 3 && thisTimeInSec) {
-					// create previous marker (if needed)
-					if (message)
-						createMarker(timeInSec, user, message);
-
-					timeInSec = thisTimeInSec;
-					user = parts[1]
-						.trim()
-						// don't forget to remove the trailing `:`
-						.slice(0, -1);
-					message = parts[2].trim();
-				}
-
-				// continuation of a chat message
-				else message += '\n' + line;
-			});
-
-			// create final marker
-			if (message) createMarker(timeInSec!, user!, message);
-		}
+		if (chatFile instanceof File && chatFile.exists)
+			for (let j = 0; j < numClips; j++)
+				createClipMarkersFromChatFile(
+					clips[j].getMarkers(),
+					chatFile
+				);
 	}
 }
 
 // Utility function so only files with a CHAT extension can
 // be loaded when this script runs on a mac
+// // @ts-expect-error TS2393
 function checkMacFileType(file: Folder | any) {
 	if (!(file instanceof Folder)) return true;
 
@@ -108,17 +76,54 @@ function checkMacFileType(file: Folder | any) {
 	return ext == 'chat' || ext == 'CHAT';
 }
 
-// Creates a new Sequence Marker
+// Creates Clip Markers in an Adobe Premiere Project from a Zoom Chat File
+// @ts-expect-error TS2393
+function createClipMarkersFromChatFile(
+	markers: MarkerCollection,
+	chatFile: File
+) {
+	var message: string | null = null,
+		timeInSec: number,
+		user: string;
+
+	readTextFile(chatFile, function (line: string) {
+		var parts = line.split('\t');
+		var time = parts[0].trim();
+		// convert the Timecode string to seconds
+		var thisTimeInSec = convertTimecodeToSeconds(time);
+
+		if (parts.length === 3 && thisTimeInSec) {
+			// create previous marker (if needed)
+			if (message)
+				createMarker(markers, timeInSec, user, message);
+
+			timeInSec = thisTimeInSec;
+			user = (<string>parts[1].trim())
+				// don't forget to remove the trailing `:`
+				.slice(0, -1);
+			message = parts[2].trim();
+		}
+
+		// continuation of a chat message
+		else message += '\n' + line;
+	});
+
+	// create final marker
+	if (message) createMarker(markers, timeInSec!, user!, message);
+}
+
+// Creates a new Clip Marker
 //
 // Docs: https://ppro-scripting.docsforadobe.dev/general/marker.html
 // @ts-expect-error TS2393
 function createMarker(
+	markers: MarkerCollection,
 	timeInSec: number,
 	user: string,
 	message: string
 ) {
 	// create the marker at the given second in the current timeline
-	var marker = sequenceMarkers.createMarker(timeInSec);
+	var marker = markers.createMarker(timeInSec);
 	var words = message.toLowerCase().split(' ');
 
 	// set the marker's name as the message's sender

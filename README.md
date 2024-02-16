@@ -2,6 +2,11 @@
 
 > Import a [Zoom `.chat` File](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067312) for a Recording as Clip (or Sequence) [Markers](https://helpx.adobe.com/premiere-pro/using/markers.html) into Adobe Premiere Pro.
 
+- [How It Works](#how-it-works)
+	- [`AddChatMarkersToClips`](#addchatmarkerstoclips)
+	- [`AddChatMarkersToSeq`](#addchatmarkerstoseq)
+	- [`ImportClipsWithMarkers`](#importclipswithmarkers)
+	- [`SelectChatFileToImport`](#selectchatfiletoimport)
 - [Getting Started](#getting-started)
 	- [Download JSX Files](#download-jsx-files)
 	- [Set Folder for Extension (in Premiere)](#set-folder-for-extension-in-premiere)
@@ -9,6 +14,25 @@
 	- [Install](#install)
 	- [Build](#build)
 - [Credits](#credits)
+
+## How It Works
+
+This section contains a brief description of what each script does.
+
+### `AddChatMarkersToClips`
+
+Iterates over each media clip in the project (**clip** or **file**), and for each one looks for any `*.chat` files in the same media path, and if found imports the Zoom Chat file as **clip markers** into the Adobe Premiere Pro project.
+
+Useful info is logged by the script into the Events pane in Premiere.
+
+### `AddChatMarkersToSeq`
+TODO
+
+### `ImportClipsWithMarkers`
+TODO
+
+### `SelectChatFileToImport`
+TODO
 
 ## Getting Started
 
@@ -90,3 +114,5 @@ npm run build
 -   [Made a script for importing a .csv of Vimeo review notes as markers into Premiere](https://www.reddit.com/r/editors/comments/11qkrev/made_a_script_for_importing_a_csv_of_vimeo_review/)
 
 -   [How to import CSV as markers?](https://www.reddit.com/r/premiere/comments/mrcvao/how_to_import_csv_as_markers/)
+
+- [ExtendScript Starter (Premiere)](https://github.com/adobe-extension-tools/extendscript-starter/blob/master/src/Premiere/index.ts)

@@ -1,6 +1,25 @@
 {
+	"name": "zoom-chat-to-ppro-markers",
+	"version": "0.0.1",
+	"description": "Import a [Zoom `.chat` File](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067312) for a Recording as Clip (or Sequence) [Markers](https://helpx.adobe.com/premiere-pro/using/markers.html) into Adobe Premiere Pro.",
+	"main": "index.js",
+	"type": "commonjs",
+	"keywords": [
+		"jsx",
+		"adobe",
+		"extendscript",
+		"zoom",
+		"adobe-premiere",
+		"adobe-extendscript",
+		"zoom-chat"
+	],
+	"author": "Ritvik Nag <me@ritviknag.com>",
+	"license": "Apache-2.0",
+	"repository": {
+	  "type": "git",
+	  "url": "https://github.com/rnag/zoom-chat-to-ppro-markers.git"
+	},
 	"scripts": {
-		"rename": "find . -name '*.js' -exec echo mv {} {}x \\;",
 		"build": "npm run compile && npm run minify",
 		"compile": "tsc",
 		"minify": "esbuild --minify --target=es5 .build/*.js --outdir=minified --out-extension:.js=.jsx"

@@ -115,7 +115,7 @@ Download the `.zip` file or [clone the project from GitHub](https://docs.github.
 git clone git@github.com:rnag/zoom-chat-to-ppro-markers.git
 ```
 
-Then open [Terminal], `cd` into the downloaded repo folder, and install all project dependencies with `npm i`:
+Then open [Terminal], `cd` into the downloaded repo folder, and install all project dependencies with [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm):
 
 ```sh
 cd zoom-chat-to-ppro-markers

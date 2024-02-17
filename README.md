@@ -5,7 +5,7 @@
 - [How It Works](#how-it-works)
 	- [`AddChatMarkersToClips`](#addchatmarkerstoclips)
 	- [`AddChatMarkersToSeq`](#addchatmarkerstoseq)
-	- [`ImportClipsWithMarkers`](#importclipswithmarkers)
+	- [`ImportFilesWithMarkers`](#importfileswithmarkers)
 	- [`SelectChatFileToImport`](#selectchatfiletoimport)
 - [Getting Started](#getting-started)
 	- [Download JSX Files](#download-jsx-files)
@@ -29,7 +29,7 @@ Useful info is logged by the script into the Events pane in Premiere.
 
 Same as above, but adds the Zoom Chat markers as _sequence markers_ (e.g. attached to the active sequence) instead of _clip markers_.
 
-### `ImportClipsWithMarkers`
+### `ImportFilesWithMarkers`
 
 Opens a file browser window, and prompts the user to select media files to import. Imports all selected media clips into a new project bin called `My New Bin`.
 
@@ -85,10 +85,10 @@ Now download the `AddChatMarkersToClips.jsx` to that folder:
 curl -fsSL https://raw.githubusercontent.com/rnag/zoom-chat-to-ppro-markers/main/minified/AddChatMarkersToSeq.jsx -o ~/PPro-Files/AddChatMarkersToClips.jsx
 ```
 
-Or, if you'd also want to download `SelectChatFileToImport.jsx` and `ImportClipsWithMarkers.jsx`:
+Or, if you'd also want to download `SelectChatFileToImport.jsx` and `ImportFilesWithMarkers.jsx`:
 
 ```sh
-files=(AddChatMarkersToClips.jsx SelectChatFileToImport.jsx ImportClipsWithMarkers.jsx); for f in ${files[*]}; do curl -fsSL "https://raw.githubusercontent.com/rnag/zoom-chat-to-ppro-markers/main/minified/${f}" -o ~/PPro-Files/"${f}"; done
+files=(AddChatMarkersToClips.jsx SelectChatFileToImport.jsx ImportFilesWithMarkers.jsx); for f in ${files[*]}; do curl -fsSL "https://raw.githubusercontent.com/rnag/zoom-chat-to-ppro-markers/main/minified/${f}" -o ~/PPro-Files/"${f}"; done
 ```
 
 ### Set Folder for Extension (in Premiere)

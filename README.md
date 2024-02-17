@@ -1,8 +1,9 @@
 # Zoom Chat to PPro Markers
 
-[Zoom `.chat` File]: https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067312
-[Terminal]: https://support.apple.com/guide/terminal/what-is-terminal-trmld4c92d55/mac
+[Git]: https://www.atlassian.com/git/tutorials/install-git
 [Markers]: https://helpx.adobe.com/premiere-pro/using/markers.html
+[Terminal]: https://support.apple.com/guide/terminal/what-is-terminal-trmld4c92d55/mac
+[Zoom `.chat` File]: https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067312
 
 > Import a [Zoom `.chat` File] for a Recording as Clip (or Sequence) [Markers] into Adobe Premiere Pro.
 
@@ -109,7 +110,7 @@ files=(AddChatMarkersToClips.jsx SelectChatFileToImport.jsx ImportFilesWithMarke
 
 ### Install
 
-Download the `.zip` file or [clone the project from GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository). Example with `ssh` (requires [Terminal]):
+Download the `.zip` file or [clone the project from GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository). Example with `ssh` (requires [Terminal] and [Git]):
 
 ```sh
 git clone git@github.com:rnag/zoom-chat-to-ppro-markers.git

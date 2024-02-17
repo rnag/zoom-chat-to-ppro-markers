@@ -34,7 +34,7 @@ const colors = {
 
 // @ts-expect-error TS2393
 function main(): void {
-	var chatFileCount = chatFiles.length;
+	const chatFileCount = chatFiles.length;
 
 	if (!chatFileCount) exitErr('No *.chat files selected!');
 
@@ -48,10 +48,10 @@ function main(): void {
 			'No media clips with the same media path as selected *chat file!'
 		);
 
-	for (var i = 0; i < chatFileCount; i++) {
+	for (let i = 0; i < chatFileCount; i++) {
 		// https://extendscript.docsforadobe.dev/file-system-access/file-object.html#file-object-properties
 
-		var chatFile = chatFiles[i];
+		const chatFile = chatFiles[i];
 
 		if (chatFile instanceof File && chatFile.exists)
 			for (let j = 0; j < numClips; j++)
@@ -80,15 +80,15 @@ function createClipMarkersFromChatFile(
 	markers: MarkerCollection,
 	chatFile: File
 ) {
-	var message: string | null = null,
+	let message: string | null = null,
 		timeInSec: number,
 		user: string;
 
 	readTextFile(chatFile, function (line: string) {
-		var parts = line.split('\t');
-		var time = parts[0].trim();
+		const parts = line.split('\t');
+		const time = parts[0].trim();
 		// convert the Timecode string to seconds
-		var thisTimeInSec = convertTimecodeToSeconds(time);
+		const thisTimeInSec = convertTimecodeToSeconds(time);
 
 		if (parts.length === 3 && thisTimeInSec) {
 			// create previous marker (if needed)
@@ -121,8 +121,8 @@ function createMarker(
 	message: string
 ) {
 	// create the marker at the given second in the current timeline
-	var marker = markers.createMarker(timeInSec);
-	var words = message.toLowerCase().split(' ');
+	const marker = markers.createMarker(timeInSec);
+	const words = message.toLowerCase().split(' ');
 
 	// set the marker's name as the message's sender
 	marker.name = user;
@@ -130,7 +130,7 @@ function createMarker(
 	marker.comments = message;
 
 	// default marker color - GREEN
-	var markerColor = colors.GREEN;
+	let markerColor = colors.GREEN;
 	// here we set a custom marker color based on message contents:
 	//
 	//  if it contains "cut | edit",
@@ -144,8 +144,8 @@ function createMarker(
 	//
 	//  if it contains "reacted",
 	//		set marker color to PURPLE
-	var word;
-	for (var i = 0; i < words.length; i++) {
+	let word;
+	for (let i = 0; i < words.length; i++) {
 		word = words[i];
 		if (word === 'cut' || word === 'edit')
 			markerColor = colors.RED;
@@ -204,17 +204,17 @@ function addStringMethods() {
 // @ts-expect-error TS2393
 function convertTimecodeToSeconds(timecode: string): number {
 	// split timecode string into 3 strings in an array according to the ':' symbol
-	var myT = timecode.split(':');
+	const myT = timecode.split(':');
 
 	if (myT.length !== 3) return 0;
 
-	var hours = parseInt(myT[0]) * 3600; // hours into integer seconds
-	var minutes = parseInt(myT[1]) * 60; // minutes into integer seconds
-	var seconds = parseInt(myT[2]);
+	const hours = parseInt(myT[0]) * 3600; // hours into integer seconds
+	const minutes = parseInt(myT[1]) * 60; // minutes into integer seconds
+	const seconds = parseInt(myT[2]);
 
 	if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) return 0;
 
-	var totalInSeconds = hours + minutes + seconds; // add the seconds together
+	const totalInSeconds = hours + minutes + seconds; // add the seconds together
 	return totalInSeconds;
 }
 
@@ -223,7 +223,7 @@ function convertTimecodeToSeconds(timecode: string): number {
 // Callback is triggered for each line of text
 // @ts-expect-error TS2393
 function readTextFile(fileOrPath: File | string, callback: Function) {
-	var file =
+	const file =
 		fileOrPath instanceof File
 			? fileOrPath
 			: new File(fileOrPath);
@@ -233,19 +233,19 @@ function readTextFile(fileOrPath: File | string, callback: Function) {
 			exitErr('Unable to open file ' + decodeURI(file.name));
 
 		if (!file.encoding) file.encoding = 'UTF-8';
-		var text = file.read();
+		const text = file.read();
 		file.close();
 
-		// var lines = text.match(/\\r\\n/)
+		// const lines = text.match(/\\r\\n/)
 		// 	? text.split("\r\n")
 		// 	: text.match(/\\r/)
 		// 	? text.split("\r")
 		// 	: text.split("\n");
 
-		var lines = text.split('\n');
+		const lines = text.split('\n');
 
 		if (typeof callback == 'function') {
-			for (var i = 0; i < lines.length; i++) {
+			for (let i = 0; i < lines.length; i++) {
 				callback(lines[i], i);
 			}
 		}

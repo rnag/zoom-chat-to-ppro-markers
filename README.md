@@ -69,7 +69,7 @@ Steps to get this working in Adobe Premiere:
 
 ### Download JSX Files
 
-Open up a Mac Terminal (use `Cmd + Space` and search for `Terminal`).
+Open up a [Terminal] on Mac (use `Cmd + Space` and search for `Terminal`).
 
 Use `mkdir` to create folder where you want to download the `*.jsx` file, and optionally `cd` to navigate there.
 

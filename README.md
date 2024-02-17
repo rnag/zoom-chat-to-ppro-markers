@@ -31,7 +31,7 @@ Same as above, but adds the Zoom Chat markers as _sequence markers_ (e.g. attach
 
 ### `ImportFilesWithMarkers`
 
-Opens a file browser window, and prompts the user to select media files to import. Imports all selected media clips into a new project bin called `My New Bin`.
+Opens a file browser window, and prompts the user to select media files to import. Imports all selected media files into a new project bin called `My New Bin`.
 
 Then, searches under the same media path (or folder) for a `*.chat` file, and for each imported media file in the bin, imports the Zoom Chat file as **clip markers** into the media file in the Adobe Premiere Pro project.
 

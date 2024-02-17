@@ -26,13 +26,22 @@ Iterates over each media clip in the project (**clip** or **file**), and for eac
 Useful info is logged by the script into the Events pane in Premiere.
 
 ### `AddChatMarkersToSeq`
-TODO
+
+Same as above, but adds the Zoom Chat markers as _sequence markers_ (e.g. attached to the active sequence) instead of _clip markers_.
 
 ### `ImportClipsWithMarkers`
-TODO
+
+Opens a file browser window, and prompts the user to select media files to import. Imports all selected media clips into a new project bin called `My New Bin`.
+
+Then, searches under the same media path (or folder) for a `*.chat` file, and for each imported media file in the bin, imports the Zoom Chat file as **clip markers** into the media file in the Adobe Premiere Pro project.
+
+Useful info is logged by the script into the Events pane in Premiere.
 
 ### `SelectChatFileToImport`
-TODO
+
+Opens a file browser window, and prompts the user to select a `*.chat` file. Locates all media clips in the project (**clip** or **file**) that share the same _media path_ or folder as the selected `*.chat` file, and for each one imports the Zoom Chat file as **clip markers** into the media clip in the Adobe Premiere Pro project.
+
+Useful info is logged by the script into the Events pane in Premiere.
 
 ## Getting Started
 
@@ -93,17 +102,24 @@ files=(AddChatMarkersToClips.jsx SelectChatFileToImport.jsx); for f in ${files[*
 
 ### Install
 
-Checkout or clone the project from Git.
+[Terminal]: https://support.apple.com/guide/terminal/what-is-terminal-trmld4c92d55/mac
 
-Then `cd` into the project folder and install all project dependencies with `npm`:
+Download the `.zip` file or [clone the project from GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository). Example with `ssh` (requires [Terminal]):
 
 ```sh
+git clone git@github.com:rnag/zoom-chat-to-ppro-markers.git
+```
+
+Then open [Terminal], `cd` into the downloaded repo folder, and install all project dependencies with `npm i`:
+
+```sh
+cd zoom-chat-to-ppro-markers
 npm i
 ```
 
 ### Build
 
-To compile typescript `.ts` files to `.jsx`, run:
+To compile typescript `.ts` files to `.jsx`, run the following command in [Terminal] (or within a console in [VS Code](https://code.visualstudio.com/)):
 
 ```sh
 npm run build
@@ -115,4 +131,4 @@ npm run build
 
 -   [How to import CSV as markers?](https://www.reddit.com/r/premiere/comments/mrcvao/how_to_import_csv_as_markers/)
 
-- [ExtendScript Starter (Premiere)](https://github.com/adobe-extension-tools/extendscript-starter/blob/master/src/Premiere/index.ts)
+-   [ExtendScript Starter (Premiere)](https://github.com/adobe-extension-tools/extendscript-starter/blob/master/src/Premiere/index.ts)

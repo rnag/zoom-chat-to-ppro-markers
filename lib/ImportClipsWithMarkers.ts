@@ -4,7 +4,12 @@ addStringMethods();
 
 var project = app.project; // current project
 
+var typeClip = ProjectItemType.CLIP;
+var typeFile = ProjectItemType.FILE;
+
 var sep = Folder.fs == 'Macintosh' ? '/' : '\\';
+
+const binName = 'My New Bin';
 
 // https://ppro-scripting.docsforadobe.dev/general/marker.html#marker-setcolorbyindex
 var colors = {
@@ -24,9 +29,11 @@ var folderToChatFiles: Record<string, File[]> = {};
 function main(): void {
 	importFiles();
 
-	// Ref: https://ppro-scripting.docsforadobe.dev/item/projectitem.html
-	var projectItems = project.rootItem.children;
-	var numProjectItems = projectItems.numItems;
+	const binItems = getPPPInsertionBin()?.children!;
+	var numBinItems = binItems.numItems!;
+
+	if (numBinItems === 0)
+		exitErr('Script was unable to create a bin!');
 
 	var clip: ProjectItem,
 		folderPath: string | null,
@@ -34,14 +41,14 @@ function main(): void {
 		markers: MarkerCollection,
 		name: string;
 
-	for (var i = 0; i < numProjectItems; i++) {
-		clip = projectItems[i];
+	for (var i = 0; i < numBinItems; i++) {
+		clip = binItems[i];
 		name = clip.name;
 		// Will be CLIP, BIN, ROOT, or FILE.
 		// Ref: https://ppro-scripting.docsforadobe.dev/item/projectitem.html#projectitem-type
 		itemType = clip.type;
 
-		updateEventPanel('[Checking Project Item #' + (i + 1) + ']');
+		updateEventPanel('[Checking Bin Item #' + (i + 1) + ']');
 		updateEventPanel('Name: ' + name);
 
 		if (clip.isSequence()) updateEventPanel('Skipping Sequence.');
@@ -157,15 +164,12 @@ function importFiles() {
 }
 
 function getPPPInsertionBin() {
-	var nameToFind = "Here's where PProPanel puts things.";
+	var targetBin = searchForBinWithName(binName);
 
-	var targetBin = searchForBinWithName(nameToFind);
-
-	// @ts-ignore
-	if (targetBin === 0) {
+	if (!targetBin) {
 		// If panel can't find the target bin, it creates it.
-		app.project.rootItem.createBin(nameToFind);
-		targetBin = searchForBinWithName(nameToFind);
+		app.project.rootItem.createBin(binName);
+		targetBin = searchForBinWithName(binName);
 	}
 	if (targetBin) {
 		targetBin.select();

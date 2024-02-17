@@ -1,6 +1,10 @@
 # Zoom Chat to PPro Markers
 
-> Import a [Zoom `.chat` File](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067312) for a Recording as Clip (or Sequence) [Markers](https://helpx.adobe.com/premiere-pro/using/markers.html) into Adobe Premiere Pro.
+[Zoom `.chat` File]: https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067312
+[Terminal]: https://support.apple.com/guide/terminal/what-is-terminal-trmld4c92d55/mac
+[Markers]: https://helpx.adobe.com/premiere-pro/using/markers.html
+
+> Import a [Zoom `.chat` File] for a Recording as Clip (or Sequence) [Markers] into Adobe Premiere Pro.
 
 - [How It Works](#how-it-works)
 	- [`AddChatMarkersToClips`](#addchatmarkerstoclips)
@@ -21,25 +25,28 @@ This section contains a brief description of what each script does.
 
 ### `AddChatMarkersToClips`
 
-Iterates over each media clip in the project (**clip** or **file**), and for each one looks for any `*.chat` files in the same media path, and if found imports the Zoom Chat file as **clip markers** into the Adobe Premiere Pro project.
+Iterates over each media clip in the project (**clip** or **file**), and for each one looks for any `*.chat` files in the same _media path_ or folder, and if found imports the [Zoom `.chat` File] as **clip [markers]** into the Adobe Premiere Pro project.
 
 Useful info is logged by the script into the Events pane in Premiere.
 
 ### `AddChatMarkersToSeq`
 
-Same as above, but adds the Zoom Chat markers as _sequence markers_ (e.g. attached to the active sequence) instead of _clip markers_.
+> [!WARNING]
+> This script is deprecated, and might not work as intended. Use with caution.
+
+Same as above, but adds the [Zoom `.chat` File] as **sequence [markers]** (e.g. attached to the active sequence) instead.
 
 ### `ImportFilesWithMarkers`
 
 Opens a file browser window, and prompts the user to select media files to import. Imports all selected media files into a new project bin called `My New Bin`.
 
-Then, searches under the same media path (or folder) for a `*.chat` file, and for each imported media file in the bin, imports the Zoom Chat file as **clip markers** into the media file in the Adobe Premiere Pro project.
+Then, searches under the same media path (or folder) for `*.chat` file(s), and for each imported media file in the bin, imports the [Zoom `.chat` File] as **clip [markers]** into the media file in the Adobe Premiere Pro project.
 
 Useful info is logged by the script into the Events pane in Premiere.
 
 ### `SelectChatFileToImport`
 
-Opens a file browser window, and prompts the user to select a `*.chat` file. Locates all media clips in the project (**clip** or **file**) that share the same _media path_ or folder as the selected `*.chat` file, and for each one imports the Zoom Chat file as **clip markers** into the media clip in the Adobe Premiere Pro project.
+Opens a file browser window, and prompts the user to select a [Zoom `.chat` File]. Locates all media clips in the project (**clip** or **file**) that share the same _media path_ or folder as the selected `*.chat` file, and for each one imports the `.chat` file as **clip [markers]** into the media clip in the Adobe Premiere Pro project.
 
 Useful info is logged by the script into the Events pane in Premiere.
 
@@ -101,8 +108,6 @@ files=(AddChatMarkersToClips.jsx SelectChatFileToImport.jsx ImportFilesWithMarke
 ## Development
 
 ### Install
-
-[Terminal]: https://support.apple.com/guide/terminal/what-is-terminal-trmld4c92d55/mac
 
 Download the `.zip` file or [clone the project from GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository). Example with `ssh` (requires [Terminal]):
 

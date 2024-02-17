@@ -85,10 +85,10 @@ Now download the `AddChatMarkersToClips.jsx` to that folder:
 curl -fsSL https://raw.githubusercontent.com/rnag/zoom-chat-to-ppro-markers/main/minified/AddChatMarkersToSeq.jsx -o ~/PPro-Files/AddChatMarkersToClips.jsx
 ```
 
-Or, if you'd also want to download `SelectChatFileToImport.jsx`:
+Or, if you'd also want to download `SelectChatFileToImport.jsx` and `ImportClipsWithMarkers.jsx`:
 
 ```sh
-files=(AddChatMarkersToClips.jsx SelectChatFileToImport.jsx); for f in ${files[*]}; do curl -fsSL "https://raw.githubusercontent.com/rnag/zoom-chat-to-ppro-markers/main/minified/${f}" -o ~/PPro-Files/"${f}"; done
+files=(AddChatMarkersToClips.jsx SelectChatFileToImport.jsx ImportClipsWithMarkers.jsx); for f in ${files[*]}; do curl -fsSL "https://raw.githubusercontent.com/rnag/zoom-chat-to-ppro-markers/main/minified/${f}" -o ~/PPro-Files/"${f}"; done
 ```
 
 ### Set Folder for Extension (in Premiere)

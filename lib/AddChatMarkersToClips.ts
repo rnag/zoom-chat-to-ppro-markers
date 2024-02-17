@@ -2,25 +2,30 @@
 
 addStringMethods();
 
-var project = app.project; // current project
+// @ts-expect-error TS2451
+const project = app.project; // current project
 
 // app.project.importFiles(vidFiles);
 
-// var videoTracks = project.activeSequence.videoTracks;
+// let videoTracks = project.activeSequence.videoTracks;
 
 // Ref: https://ppro-scripting.docsforadobe.dev/item/projectitem.html
-var projectItems = project.rootItem.children;
-var numProjectItems = projectItems.numItems;
+const projectItems = project.rootItem.children;
+const numProjectItems = projectItems.numItems;
 
-var typeClip = ProjectItemType.CLIP;
-var typeFile = ProjectItemType.FILE;
+// @ts-expect-error TS2451
+const typeClip = ProjectItemType.CLIP;
+// @ts-expect-error TS2451
+const typeFile = ProjectItemType.FILE;
 
-var sep = Folder.fs == 'Macintosh' ? '/' : '\\';
+// @ts-expect-error TS2451
+const sep = Folder.fs == 'Macintosh' ? '/' : '\\';
 
 if (numProjectItems === 0) exitErr('Script requires a project item!');
 
 // https://ppro-scripting.docsforadobe.dev/general/marker.html#marker-setcolorbyindex
-var colors = {
+// @ts-expect-error TS2451
+const colors = {
 	GREEN: 0,
 	RED: 1,
 	PURPLE: 2,
@@ -31,17 +36,18 @@ var colors = {
 	CYAN: 7,
 };
 
-var folderToChatFiles: Record<string, File[]> = {};
+// @ts-expect-error TS2451
+const folderToChatFiles: Record<string, File[]> = {};
 
 // @ts-expect-error TS2393
 function main(): void {
-	var clip: ProjectItem,
+	let clip: ProjectItem,
 		folderPath: string | null,
 		itemType: number,
 		markers: MarkerCollection,
 		name: string;
 
-	for (var i = 0; i < numProjectItems; i++) {
+	for (let i = 0; i < numProjectItems; i++) {
 		clip = projectItems[i];
 		name = clip.name;
 		// Will be CLIP, BIN, ROOT, or FILE.
@@ -73,7 +79,7 @@ function main(): void {
 					else {
 						// Get a list of *.chat files in the same media path (folder)
 						// as the media file, and cache the list of files if needed.
-						var chatFiles = folderToChatFiles[folderPath];
+						let chatFiles = folderToChatFiles[folderPath];
 						if (chatFiles === undefined)
 							chatFiles = folderToChatFiles[
 								folderPath
@@ -83,7 +89,7 @@ function main(): void {
 								)
 							);
 
-						var chatFileCount = chatFiles.length;
+						const chatFileCount = chatFiles.length;
 
 						if (!chatFileCount)
 							updateEventPanel(
@@ -92,9 +98,9 @@ function main(): void {
 						else {
 							updateEventPanel('Adding markers.');
 
-							for (var j = 0; j < chatFileCount; j++) {
+							for (let j = 0; j < chatFileCount; j++) {
 								// https://extendscript.docsforadobe.dev/file-system-access/file-object.html#file-object-properties
-								var chatFile = chatFiles[j];
+								const chatFile = chatFiles[j];
 
 								if (
 									chatFile instanceof File &&
@@ -122,15 +128,15 @@ function createClipMarkersFromChatFile(
 	markers: MarkerCollection,
 	chatFile: File
 ) {
-	var message: string | null = null,
+	let message: string | null = null,
 		timeInSec: number,
 		user: string;
 
 	readTextFile(chatFile, function (line: string) {
-		var parts = line.split('\t');
-		var time = parts[0].trim();
+		const parts = line.split('\t');
+		const time = parts[0].trim();
 		// convert the Timecode string to seconds
-		var thisTimeInSec = convertTimecodeToSeconds(time);
+		const thisTimeInSec = convertTimecodeToSeconds(time);
 
 		if (parts.length === 3 && thisTimeInSec) {
 			// create previous marker (if needed)
@@ -163,8 +169,8 @@ function createMarker(
 	message: string
 ) {
 	// create the marker at the given second in the current timeline
-	var marker = markers.createMarker(timeInSec);
-	var words = message.toLowerCase().split(' ');
+	const marker = markers.createMarker(timeInSec);
+	const words = message.toLowerCase().split(' ');
 
 	// set the marker's name as the message's sender
 	marker.name = user;
@@ -172,7 +178,7 @@ function createMarker(
 	marker.comments = message;
 
 	// default marker color - GREEN
-	var markerColor = colors.GREEN;
+	let markerColor = colors.GREEN;
 	// here we set a custom marker color based on message contents:
 	//
 	//  if it contains "cut | edit",
@@ -186,8 +192,8 @@ function createMarker(
 	//
 	//  if it contains "reacted",
 	//		set marker color to PURPLE
-	var word;
-	for (var i = 0; i < words.length; i++) {
+	let word;
+	for (let i = 0; i < words.length; i++) {
 		word = words[i];
 		if (word === 'cut' || word === 'edit')
 			markerColor = colors.RED;
@@ -249,8 +255,8 @@ function addStringMethods() {
 function getFolderName(pItem: ProjectItem) {
 	if (!pItem) return null;
 
-	var fullPath = pItem.getMediaPath();
-	var lastSep = fullPath.lastIndexOf(sep);
+	const fullPath = pItem.getMediaPath();
+	const lastSep = fullPath.lastIndexOf(sep);
 
 	return lastSep > -1 ? fullPath.slice(0, lastSep) : fullPath;
 }
@@ -264,8 +270,8 @@ function getFolderName(pItem: ProjectItem) {
 // }
 
 // function extractFileNameFromPath(fullPath) {
-// 	var lastDot = fullPath.lastIndexOf('.');
-// 	var lastSep = fullPath.lastIndexOf('/');
+// 	const lastDot = fullPath.lastIndexOf('.');
+// 	const lastSep = fullPath.lastIndexOf('/');
 
 // 	if (lastDot > -1) {
 // 		return fullPath.substring(
@@ -281,17 +287,17 @@ function getFolderName(pItem: ProjectItem) {
 // @ts-expect-error TS2393
 function convertTimecodeToSeconds(timecode: string): number {
 	// split timecode string into 3 strings in an array according to the ':' symbol
-	var myT = timecode.split(':');
+	const myT = timecode.split(':');
 
 	if (myT.length !== 3) return 0;
 
-	var hours = parseInt(myT[0]) * 3600; // hours into integer seconds
-	var minutes = parseInt(myT[1]) * 60; // minutes into integer seconds
-	var seconds = parseInt(myT[2]);
+	const hours = parseInt(myT[0]) * 3600; // hours into integer seconds
+	const minutes = parseInt(myT[1]) * 60; // minutes into integer seconds
+	const seconds = parseInt(myT[2]);
 
 	if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) return 0;
 
-	var totalInSeconds = hours + minutes + seconds; // add the seconds together
+	const totalInSeconds = hours + minutes + seconds; // add the seconds together
 	return totalInSeconds;
 }
 
@@ -300,7 +306,7 @@ function convertTimecodeToSeconds(timecode: string): number {
 // Callback is triggered for each line of text
 // @ts-expect-error TS2393
 function readTextFile(fileOrPath: File | string, callback: Function) {
-	var file =
+	const file =
 		fileOrPath instanceof File
 			? fileOrPath
 			: new File(fileOrPath);
@@ -310,19 +316,19 @@ function readTextFile(fileOrPath: File | string, callback: Function) {
 			exitErr('Unable to open file ' + decodeURI(file.name));
 
 		if (!file.encoding) file.encoding = 'UTF-8';
-		var text = file.read();
+		const text = file.read();
 		file.close();
 
-		// var lines = text.match(/\\r\\n/)
+		// const lines = text.match(/\\r\\n/)
 		// 	? text.split("\r\n")
 		// 	: text.match(/\\r/)
 		// 	? text.split("\r")
 		// 	: text.split("\n");
 
-		var lines = text.split('\n');
+		const lines = text.split('\n');
 
 		if (typeof callback == 'function') {
-			for (var i = 0; i < lines.length; i++) {
+			for (let i = 0; i < lines.length; i++) {
 				callback(lines[i], i);
 			}
 		}

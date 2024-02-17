@@ -1,5 +1,6 @@
 # Zoom Chat to PPro Markers
 
+[Events Panel]: https://www.theinsidetips.com/tip-1058-what-is-the-events-panel
 [Git]: https://www.atlassian.com/git/tutorials/install-git
 [Markers]: https://helpx.adobe.com/premiere-pro/using/markers.html
 [Terminal]: https://support.apple.com/guide/terminal/what-is-terminal-trmld4c92d55/mac
@@ -28,7 +29,7 @@ This section contains a brief description of what each script does.
 
 Iterates over each media clip in the project (**clip** or **file**), and for each one looks for any `*.chat` files in the same _media path_ or folder, and if found imports the [Zoom `.chat` File] as **clip [markers]** into the Adobe Premiere Pro project.
 
-Useful info is logged by the script into the Events pane in Premiere.
+Useful info is logged by the script into the [Events Panel] in Premiere.
 
 ### `AddChatMarkersToSeq`
 
@@ -43,13 +44,13 @@ Opens a file browser window, and prompts the user to select media files to impor
 
 Then, searches under the same media path (or folder) for `*.chat` file(s), and for each imported media file in the bin, imports the [Zoom `.chat` File] as **clip [markers]** into the media file in the Adobe Premiere Pro project.
 
-Useful info is logged by the script into the Events pane in Premiere.
+Useful info is logged by the script into the [Events Panel] in Premiere.
 
 ### `SelectChatFileToImport`
 
 Opens a file browser window, and prompts the user to select a [Zoom `.chat` File]. Locates all media clips in the project (**clip** or **file**) that share the same _media path_ or folder as the selected `*.chat` file, and for each one imports the `.chat` file as **clip [markers]** into the media clip in the Adobe Premiere Pro project.
 
-Useful info is logged by the script into the Events pane in Premiere.
+Useful info is logged by the script into the [Events Panel] in Premiere.
 
 ## Getting Started
 

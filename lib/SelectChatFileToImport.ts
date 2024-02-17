@@ -2,28 +2,26 @@
 
 addStringMethods();
 
-var project = app.project; // current project
+// @ts-expect-error TS2451
+const project = app.project; // current project
 
 // Refs:
 //   - https://extendscript.docsforadobe.dev/file-system-access/file-object.html#opendialog
 //   - https://github.com/Adobe-CEP/CEP-Resources/blob/80003af709375bc36fc2ea19933878635ecb751b/ExtendScript-Toolkit/Samples/javascript/SnpXMLTreeView.jsx#L446
 const userPrompt = 'Select *.chat file';
 
+let chatFiles: File[];
 if (File.fs == 'Windows')
-	var chatFiles = File.openDialog(
+	chatFiles = File.openDialog(
 		userPrompt,
 		'CHAT Files: *.chat',
 		true
 	);
-else
-	var chatFiles = File.openDialog(
-		userPrompt,
-		checkMacFileType,
-		true
-	);
+else chatFiles = File.openDialog(userPrompt, checkMacFileType, true);
 
 // https://ppro-scripting.docsforadobe.dev/general/marker.html#marker-setcolorbyindex
-var colors = {
+// @ts-expect-error TS2451
+const colors = {
 	GREEN: 0,
 	RED: 1,
 	PURPLE: 2,

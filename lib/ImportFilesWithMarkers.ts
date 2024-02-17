@@ -2,17 +2,22 @@
 
 addStringMethods();
 
-var project = app.project; // current project
+// @ts-expect-error TS2451
+const project = app.project; // current project
 
-var typeClip = ProjectItemType.CLIP;
-var typeFile = ProjectItemType.FILE;
+// @ts-expect-error TS2451
+const typeClip = ProjectItemType.CLIP;
+// @ts-expect-error TS2451
+const typeFile = ProjectItemType.FILE;
 
-var sep = Folder.fs == 'Macintosh' ? '/' : '\\';
+// @ts-expect-error TS2451
+const sep = Folder.fs == 'Macintosh' ? '/' : '\\';
 
 const binName = 'My New Bin';
 
 // https://ppro-scripting.docsforadobe.dev/general/marker.html#marker-setcolorbyindex
-var colors = {
+// @ts-expect-error TS2451
+const colors = {
 	GREEN: 0,
 	RED: 1,
 	PURPLE: 2,
@@ -23,7 +28,8 @@ var colors = {
 	CYAN: 7,
 };
 
-var folderToChatFiles: Record<string, File[]> = {};
+// @ts-expect-error TS2451
+const folderToChatFiles: Record<string, File[]> = {};
 
 // @ts-expect-error TS2393
 function main(): void {

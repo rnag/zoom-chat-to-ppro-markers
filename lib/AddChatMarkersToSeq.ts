@@ -2,8 +2,9 @@
 
 addStringMethods();
 
-var project = app.project; // current project
-var sequence = project.activeSequence; // current open timeline
+// @ts-expect-error TS2451
+const project = app.project; // current project
+const sequence = project.activeSequence; // current open timeline
 
 if (!sequence) exitErr('Script requires an active sequence!');
 
@@ -12,24 +13,26 @@ if (!sequence) exitErr('Script requires an active sequence!');
 
 // var videoTracks = project.activeSequence.videoTracks;
 
-var sequenceMarkers = sequence.markers;
+const sequenceMarkers = sequence.markers;
 
 // Ref: https://ppro-scripting.docsforadobe.dev/item/projectitem.html
-var rootProject = project.rootItem;
+const rootProject = project.rootItem;
 
-var item = rootProject.children[0]; // assuming that the first project item is footage.
+const item = rootProject.children[0]; // assuming that the first project item is footage.
 
-var sep = Folder.fs == 'Macintosh' ? '/' : '\\';
+// @ts-expect-error TS2451
+const sep = Folder.fs == 'Macintosh' ? '/' : '\\';
 
-var folderPath: string | null = getFolderName(item);
+const folderPath: string | null = getFolderName(item);
 
 if (!folderPath)
 	exitErr('Script requires a clip in the active sequence!');
 
-var clipFolder = Folder(folderPath!);
+const clipFolder = Folder(folderPath!);
 
 // https://ppro-scripting.docsforadobe.dev/general/marker.html#marker-setcolorbyindex
-var colors = {
+// @ts-expect-error TS2451
+const colors = {
 	GREEN: 0,
 	RED: 1,
 	PURPLE: 2,
